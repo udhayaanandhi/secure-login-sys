@@ -1,0 +1,26 @@
+{% extends "base.html" %}
+
+{% block content %}
+    <h1>Dashboard</h1>
+    <div class="info-box">
+        <p style="font-size: 1.2rem; margin-bottom: 20px;">Welcome back, <strong>{{ username }}</strong>!</p>
+        
+        {% if is_2fa_enabled %}
+            <div style="color: var(--success-color); border: 1px solid var(--success-color); padding: 10px; border-radius: 10px; display: inline-block;">
+                <span style="font-size: 1.5rem; vertical-align: middle;">🛡️</span> 
+                <span style="vertical-align: middle; margin-left: 5px;">2FA is ENABLED</span>
+            </div>
+        {% else %}
+            <div style="color: var(--error-color); border: 1px solid var(--error-color); padding: 10px; border-radius: 10px; display: inline-block;">
+                <span style="font-size: 1.5rem; vertical-align: middle;">⚠️</span> 
+                <span style="vertical-align: middle; margin-left: 5px;">2FA is DISABLED</span>
+            </div>
+            <br><br>
+            <a href="{{ url_for('setup_2fa') }}" class="btn" style="text-decoration: none; display: inline-block; width: auto; padding: 10px 20px;">Enable 2FA Now</a>
+        {% endif %}
+    </div>
+
+    <div style="text-align: center; margin-top: 30px;">
+        <a href="{{ url_for('logout') }}" class="btn btn-secondary" style="text-decoration: none; display: inline-block;">Logout</a>
+    </div>
+{% endblock %}

@@ -1,0 +1,26 @@
+{% extends "base.html" %}
+
+{% block content %}
+    <h1>Setup 2-Factor Authentication</h1>
+    
+    <div class="info-box">
+        <p>1. Open Google Authenticator (or any TOTP app) on your phone.</p>
+        <p>2. Scan this QR code:</p>
+        <img src="data:image/png;base64,{{ qr_b64 }}" alt="QR Code" width="200" height="200">
+        <br><br>
+        <p style="font-size: 0.9em; color: var(--text-muted)">Or enter code manually: <strong>{{ secret }}</strong></p>
+    </div>
+
+    <form action="{{ url_for('setup_2fa') }}" method="POST">
+        <div class="form-group">
+            <label for="token">3. Enter the 6-digit code shown in the app:</label>
+            <input type="text" id="token" name="token" required autocomplete="off" placeholder="e.g. 123456" maxlength="6" pattern="\d{6}">
+            <small style="color: var(--text-muted); font-size: 0.8rem; margin-top: 5px; display: block;">Numbers only.</small>
+        </div>
+        <button type="submit" class="btn">Verify and Enable</button>
+    </form>
+    
+    <div style="text-align: center; margin-top: 20px;">
+        <a href="{{ url_for('dashboard') }}" class="link-text">Cancel</a>
+    </div>
+{% endblock %}
